@@ -1,45 +1,33 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
-  <!-- 
-    ================================================================
-    TECH STACK SPECIFICATION:
-    1. Structure   : HTML5 Semantic Elements
-    2. Styling     : Tailwind CSS CDN (v3.x Utility Classes)
-    3. Typography  : Google Fonts (Poppins & Plus Jakarta Sans)
-    4. Iconography : Lucide Icons (CDN)
-    5. Logic/Engine: Vanilla JavaScript (ES6+ Client-Side DOM & Events)
-    6. Architecture: Static Web App (Jamstack / Zero-Backend Required)
-    ================================================================
-  -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zero Waste Campus UIGM - Menuju Kampus Hijau & Berkelanjutan</title>
-
-  <!-- [Stack 2] Tailwind CSS via CDN -->
+  <title>Zero Waste Campus & Kampus Sehat — Universitas Indo Global Mandiri</title>
+  
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- [Stack 4] Lucide Icons CDN -->
+  <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- [Stack 3] Google Fonts -->
+  <!-- Chart.js CDN for UI GreenMetric Monitoring Dashboard -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Custom Configuration for Tailwind Theme -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: {
-              green: '#15803d',
-              darkgreen: '#0b4d26',
-              lightgreen: '#22c55e',
-              yellow: '#eab308',
-              orange: '#f97316',
-              softmint: '#f0fdf4'
+            uigm: {
+              darkgreen: '#2C5F2D', // Warna primer resmi dokumen paparan
+              lightgreen: '#3b8236',
+              amber: '#E0A626',     // Warna aksen tombol & metrik penting
+              amberlight: '#fffbeb',
+              softbg: '#f8faf8',
+              emerald: '#15803d'
             }
           },
           fontFamily: {
@@ -52,533 +40,391 @@
   </script>
 
   <style>
-    .hero-glow {
-      background: radial-gradient(circle at 50% 20%, rgba(34, 197, 94, 0.15) 0%, rgba(240, 253, 244, 0.95) 75%);
+    .bg-grid-pattern {
+      background-size: 30px 30px;
+      background-image: 
+        linear-gradient(to right, rgba(44, 95, 45, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(44, 95, 45, 0.05) 1px, transparent 1px);
     }
     @media print {
-      body * {
-        visibility: hidden;
-      }
-      #printableCard, #printableCard * {
-        visibility: visible;
-      }
-      #printableCard {
+      body * { visibility: hidden; }
+      #printableQrCard, #printableQrCard * { visibility: visible; }
+      #printableQrCard {
         position: absolute;
         left: 50%;
         top: 20%;
         transform: translateX(-50%);
         width: 100%;
-        max-width: 500px;
+        max-width: 480px;
       }
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-green selection:text-white">
+<body class="bg-uigm-softbg text-slate-800 font-sans antialiased selection:bg-uigm-darkgreen selection:text-white">
 
-  <!-- ================= NAVBAR ================= -->
-  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-emerald-100 shadow-sm">
+  <!-- TOP BAR: SDG Center & Indikator UI GreenMetric -->
+  <div class="bg-uigm-darkgreen text-white text-xs py-2 px-4 border-b border-emerald-900/40">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+      <div class="flex items-center gap-3">
+        <span class="font-bold flex items-center gap-1.5 text-uigm-amber">
+          <i data-lucide="shield-check" class="w-4 h-4"></i> SDG Center UIGM
+        </span>
+        <span class="hidden sm:inline text-emerald-300">|</span>
+        <span class="hidden sm:inline text-emerald-100">Mendukung Indikator UI GreenMetric (WS1–WS5) & THE Impact SDGs 3, 12, 13</span>
+      </div>
+      <div class="flex items-center gap-4 text-emerald-200">
+        <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-uigm-amber"></i> Palembang, Sumsel</span>
+        <a href="#monitoring" class="hover:text-white underline decoration-uigm-amber">Status Data: Terverifikasi</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
-      <!-- Brand Logo -->
-      <div class="flex items-center space-x-3">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-brand-darkgreen to-brand-lightgreen flex items-center justify-center text-white font-heading font-black text-xl shadow-md shadow-emerald-200">
+      <!-- Brand Identity -->
+      <a href="#" class="flex items-center space-x-3">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-uigm-darkgreen to-uigm-lightgreen flex items-center justify-center text-white font-heading font-black text-xl shadow-md shadow-emerald-900/20">
           UIGM
         </div>
         <div>
-          <span class="block font-heading font-extrabold text-brand-darkgreen leading-tight text-lg">ZERO WASTE CAMPUS</span>
-          <span class="text-xs font-semibold tracking-wider text-emerald-600 uppercase">Universitas Indo Global Mandiri</span>
+          <span class="block font-heading font-extrabold text-uigm-darkgreen leading-tight text-lg">ZERO WASTE CAMPUS</span>
+          <span class="text-[11px] font-semibold tracking-wider text-slate-600 uppercase">& Kampus Sehat Terpadu</span>
         </div>
-      </div>
+      </a>
 
-      <!-- Navigation Menu -->
-      <nav class="hidden lg:flex items-center space-x-7 text-sm font-semibold text-slate-600">
-        <a href="#program" class="hover:text-brand-green transition">6 Program</a>
-        <a href="#fakultas" class="hover:text-brand-green transition">7 Fakultas</a>
-        <a href="#kalkulator" class="hover:text-brand-green transition">Eco Point Simulator</a>
-        <a href="#komitmen" class="hover:text-brand-green transition">Kartu Komitmen</a>
-        <a href="#techstack" class="px-3 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-mono transition flex items-center gap-1">
-          <i data-lucide="layers" class="w-3.5 h-3.5 text-brand-green"></i> Tech Stack
+      <!-- Navigation Links -->
+      <nav class="hidden lg:flex items-center space-x-6 text-sm font-semibold text-slate-600">
+        <a href="#tentang" class="hover:text-uigm-darkgreen transition">Tentang</a>
+        <a href="#hargatitik" class="hover:text-uigm-darkgreen transition">Harga & Titik Setor</a>
+        <a href="#aplikasi-nasabah" class="hover:text-uigm-darkgreen transition flex items-center gap-1">
+          <i data-lucide="smartphone" class="w-4 h-4 text-emerald-600"></i> App Bank Sampah
+        </a>
+        <a href="#katalog-produk" class="hover:text-uigm-darkgreen transition">Katalog Produk</a>
+        <a href="#kampus-sehat" class="hover:text-uigm-darkgreen transition">Kampus Sehat</a>
+        <a href="#monitoring" class="hover:text-uigm-darkgreen transition flex items-center gap-1">
+          <i data-lucide="bar-chart-3" class="w-4 h-4 text-uigm-amber"></i> Dashboard KPI
         </a>
       </nav>
 
-      <!-- CTA Button -->
-      <div class="flex items-center gap-3">
-        <a href="#komitmen" class="px-5 py-2.5 bg-brand-green hover:bg-brand-darkgreen text-white text-sm font-bold rounded-full shadow-lg shadow-emerald-700/20 transition-all flex items-center gap-2">
-          <i data-lucide="award" class="w-4 h-4"></i> Duta Kampus
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2">
+        <a href="#daftar-nasabah" class="px-4 py-2.5 bg-uigm-amber hover:bg-amber-600 text-slate-900 text-xs sm:text-sm font-bold rounded-xl shadow-md transition flex items-center gap-1.5">
+          <i data-lucide="user-plus" class="w-4 h-4"></i> Daftar Nasabah
+        </a>
+        <a href="#portal-petugas" class="hidden sm:flex px-3.5 py-2.5 bg-uigm-darkgreen hover:bg-emerald-900 text-white text-xs sm:text-sm font-bold rounded-xl shadow transition items-center gap-1.5">
+          <i data-lucide="scan-line" class="w-4 h-4"></i> Input Petugas
         </a>
       </div>
     </div>
   </header>
 
-  <!-- ================= HERO SECTION ================= -->
-  <section class="hero-glow pt-12 pb-20 border-b border-emerald-100 relative">
+  <!-- 1. HERO SECTION & LIVE IMPACT COUNTERS -->
+  <section class="bg-grid-pattern pt-12 pb-20 border-b border-emerald-100 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Badges: Diktisaintek Berdampak & SDGs -->
-      <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
-        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-emerald-800 shadow-sm border border-emerald-200">
-          <i data-lucide="check-circle" class="w-4 h-4 text-brand-green"></i> DIKTISAINTEK BERDAMPAK
-        </span>
-        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-blue-700 shadow-sm border border-blue-200">
-          <i data-lucide="globe" class="w-4 h-4 text-blue-600"></i> SUSTAINABLE DEVELOPMENT GOALS
-        </span>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        <!-- Hero Text -->
-        <div class="lg:col-span-7 text-center lg:text-left space-y-6">
-          <div class="inline-block px-4 py-1.5 rounded-full bg-emerald-100 text-brand-darkgreen text-xs sm:text-sm font-bold tracking-wide">
-            🌱 Gerakan Kolektif Menuju Kampus Nol Sampah
-          </div>
-          <h1 class="text-4xl sm:text-6xl font-heading font-black text-brand-darkgreen leading-tight">
-            ZERO WASTE <br class="hidden sm:block">
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">CAMPUS UIGM</span>
-          </h1>
-          <p class="text-lg sm:text-xl font-medium text-slate-700 max-w-2xl">
-            "Menuju Kampus Hijau, Bersih, Berkelanjutan, dan Berdaya Saing."
-          </p>
-
-          <!-- Balloon Speech Mascot Quote -->
-          <div class="p-4 rounded-2xl bg-white/90 backdrop-blur border-2 border-emerald-300 shadow-sm flex items-start gap-4 text-left">
-            <div class="p-3 rounded-2xl bg-emerald-100 text-brand-darkgreen shrink-0">
-              <i data-lucide="message-square-heart" class="w-6 h-6"></i>
-            </div>
-            <div>
-              <p class="font-extrabold text-slate-800 text-sm">Pesan Maskot Kampus Bersih:</p>
-              <p class="text-base font-bold text-emerald-700 italic">"Kampus Bersih, Masa Depan Lebih Baik!"</p>
-            </div>
-          </div>
-
-          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-            <a href="#program" class="px-6 py-3.5 rounded-xl bg-brand-green hover:bg-brand-darkgreen text-white font-bold transition shadow-lg shadow-emerald-700/20 flex items-center gap-2">
-              <i data-lucide="compass" class="w-5 h-5"></i> 6 Program Unggulan
-            </a>
-            <a href="#kalkulator" class="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 text-brand-darkgreen border border-emerald-200 font-bold transition shadow-sm flex items-center gap-2">
-              <i data-lucide="calculator" class="w-5 h-5"></i> Cek Eco Point Anda
-            </a>
-          </div>
+      <!-- Headline & Callout -->
+      <div class="max-w-3xl mx-auto text-center space-y-5">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 text-uigm-darkgreen text-xs font-bold border border-emerald-200">
+          <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> SK Rektor & Program Kolaboratif 7 Fakultas UIGM
         </div>
-
-        <!-- Hero Graphic Showcase -->
-        <div class="lg:col-span-5 flex justify-center">
-          <div class="w-full max-w-md bg-white p-7 rounded-3xl shadow-xl border border-emerald-100 relative">
-            <div class="h-44 rounded-2xl bg-gradient-to-br from-emerald-700 via-teal-700 to-green-800 flex flex-col justify-center items-center text-white p-6 text-center shadow-inner">
-              <i data-lucide="recycle" class="w-14 h-14 mb-2 text-brand-yellow animate-bounce"></i>
-              <h3 class="font-heading font-black text-xl">UIGM GREEN ECOSYSTEM</h3>
-              <p class="text-xs text-emerald-200 mt-1">Sinergi 7 Fakultas & Inisiatif Nol Sampah</p>
-            </div>
-
-            <!-- Stats Counters -->
-            <div class="grid grid-cols-2 gap-3 mt-4 text-center">
-              <div class="p-3.5 bg-emerald-50 rounded-2xl border border-emerald-100">
-                <div class="text-3xl font-black text-brand-darkgreen">6</div>
-                <div class="text-xs font-bold text-slate-600 mt-1">Pilar Program</div>
-              </div>
-              <div class="p-3.5 bg-emerald-50 rounded-2xl border border-emerald-100">
-                <div class="text-3xl font-black text-brand-darkgreen">7</div>
-                <div class="text-xs font-bold text-slate-600 mt-1">Fakultas Terlibat</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 6 PROGRAM UNGGULAN ================= -->
-  <section id="program" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-100 text-amber-900 rounded-full text-xs font-black uppercase">
-          <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600"></i> Fokus Utama Poster
-        </div>
-        <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-brand-darkgreen">
-          6 PROGRAM UNGGULAN
-        </h2>
-        <p class="text-slate-600">
-          Inisiatif komprehensif dari Universitas Indo Global Mandiri untuk mewujudkan lingkungan akademik bersih dan berkelanjutan.
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-heading font-black text-uigm-darkgreen tracking-tight leading-tight">
+          Menuju Kampus Hijau, Sehat & <br class="hidden sm:block">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-uigm-darkgreen via-emerald-600 to-uigm-amber">
+            Ekonomi Berkelanjutan
+          </span>
+        </h1>
+        <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          Pencatatan sampah terintegrasi satu basis data: dukung nasabah berdaya, konversi pakan ternak maggot & kompos, serta suplai data akurat untuk UI GreenMetric.
         </p>
+
+        <div class="flex flex-wrap justify-center gap-3 pt-2">
+          <a href="#daftar-nasabah" class="px-6 py-3.5 bg-uigm-darkgreen hover:bg-emerald-900 text-white font-bold rounded-xl shadow-lg shadow-emerald-900/20 transition flex items-center gap-2">
+            <i data-lucide="qr-code" class="w-5 h-5 text-uigm-amber"></i> Buat Kartu QR Nasabah
+          </a>
+          <a href="#hargatitik" class="px-6 py-3.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-bold rounded-xl shadow-sm transition flex items-center gap-2">
+            <i data-lucide="list-collapse" class="w-5 h-5 text-emerald-700"></i> Cek Harga Sampah Hari Ini
+          </a>
+        </div>
       </div>
 
-      <!-- 6 Grid Items -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        
-        <!-- 1. Plastic-Free Campus -->
-        <div class="p-6 rounded-2xl border-2 border-emerald-100 hover:border-brand-green bg-white hover:shadow-xl transition flex flex-col justify-between">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black text-lg flex items-center justify-center">1</span>
-              <div class="p-2.5 rounded-xl bg-blue-50 text-blue-600">
-                <i data-lucide="shield-ban" class="w-6 h-6"></i>
-              </div>
-            </div>
-            <h3 class="text-xl font-heading font-extrabold text-slate-800">UIGM Plastic-Free Campus</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Kurangi botol dan kemasan plastik sekali pakai di lingkungan kampus dengan membiasakan membawa tumbler pribadi.
-            </p>
+      <!-- 4 Live Impact Numbers (Sesuai Bab 5.3 Dokumen) -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-14">
+        <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-md">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Total Sampah Terolah</span>
+          <div class="mt-2 flex items-baseline gap-1">
+            <span id="counterKg" class="text-3xl sm:text-4xl font-black text-uigm-darkgreen">1,480</span>
+            <span class="text-sm font-bold text-slate-600">kg</span>
           </div>
-          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-bold text-brand-green">
-            <i data-lucide="check" class="w-4 h-4 mr-1"></i> Water Station Kampus
-          </div>
+          <span class="text-[11px] text-emerald-700 font-semibold mt-1 flex items-center gap-1">
+            <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Organik & Anorganik
+          </span>
         </div>
 
-        <!-- 2. UIGM Waste Bank -->
-        <div class="p-6 rounded-2xl border-2 border-emerald-100 hover:border-brand-green bg-white hover:shadow-xl transition flex flex-col justify-between">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black text-lg flex items-center justify-center">2</span>
-              <div class="p-2.5 rounded-xl bg-amber-50 text-amber-600">
-                <i data-lucide="boxes" class="w-6 h-6"></i>
-              </div>
-            </div>
-            <h3 class="text-xl font-heading font-extrabold text-slate-800">UIGM Waste Bank</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Sampah bernilai ekonomi dikumpulkan, dipilah, dan dikelola secara mandiri demi mendukung ekonomi sirkular kampus.
-            </p>
+        <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-md">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Nasabah Terdaftar</span>
+          <div class="mt-2 flex items-baseline gap-1">
+            <span id="counterNasabah" class="text-3xl sm:text-4xl font-black text-uigm-darkgreen">342</span>
+            <span class="text-sm font-bold text-slate-600">Orang</span>
           </div>
-          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-bold text-brand-green">
-            <i data-lucide="check" class="w-4 h-4 mr-1"></i> Bank Sampah Terpadu
-          </div>
+          <span class="text-[11px] text-emerald-700 font-semibold mt-1 flex items-center gap-1">
+            <i data-lucide="users" class="w-3.5 h-3.5"></i> Mahasiswa, Dosen, Tendik
+          </span>
         </div>
 
-        <!-- 3. Green Canteen -->
-        <div class="p-6 rounded-2xl border-2 border-emerald-100 hover:border-brand-green bg-white hover:shadow-xl transition flex flex-col justify-between">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black text-lg flex items-center justify-center">3</span>
-              <div class="p-2.5 rounded-xl bg-emerald-50 text-emerald-600">
-                <i data-lucide="utensils" class="w-6 h-6"></i>
-              </div>
-            </div>
-            <h3 class="text-xl font-heading font-extrabold text-slate-800">Green Canteen</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Kantin ramah lingkungan dengan pengurangan pembungkus plastik sekali pakai dan meminimalisir sampah sisa makanan.
-            </p>
+        <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-md">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Total Tabungan Nasabah</span>
+          <div class="mt-2 flex items-baseline gap-1">
+            <span class="text-xs font-bold text-slate-600">Rp</span>
+            <span id="counterSaldo" class="text-3xl sm:text-4xl font-black text-uigm-darkgreen">4,250,000</span>
           </div>
-          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-bold text-brand-green">
-            <i data-lucide="check" class="w-4 h-4 mr-1"></i> Wadah Reusable
-          </div>
+          <span class="text-[11px] text-emerald-700 font-semibold mt-1 flex items-center gap-1">
+            <i data-lucide="wallet" class="w-3.5 h-3.5"></i> Nilai Ekonomi Beredar
+          </span>
         </div>
 
-        <!-- 4. Paperless UIGM -->
-        <div class="p-6 rounded-2xl border-2 border-emerald-100 hover:border-brand-green bg-white hover:shadow-xl transition flex flex-col justify-between">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black text-lg flex items-center justify-center">4</span>
-              <div class="p-2.5 rounded-xl bg-indigo-50 text-indigo-600">
-                <i data-lucide="laptop" class="w-6 h-6"></i>
-              </div>
-            </div>
-            <h3 class="text-xl font-heading font-extrabold text-slate-800">Paperless UIGM</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Administrasi, pembelajaran, kuis, dan komunikasi akademik bertransformasi serba digital bebas pemborosan kertas.
-            </p>
+        <div class="bg-white p-5 rounded-2xl border border-emerald-100 shadow-md">
+          <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Reduksi Emisi TPA</span>
+          <div class="mt-2 flex items-baseline gap-1">
+            <span class="text-3xl sm:text-4xl font-black text-uigm-darkgreen">42.8</span>
+            <span class="text-sm font-bold text-slate-600">%</span>
           </div>
-          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-bold text-brand-green">
-            <i data-lucide="check" class="w-4 h-4 mr-1"></i> E-Office & Portal Digital
-          </div>
+          <span class="text-[11px] text-emerald-700 font-semibold mt-1 flex items-center gap-1">
+            <i data-lucide="leaf" class="w-3.5 h-3.5 text-uigm-amber"></i> Baseline Fase 1 UIGM
+          </span>
         </div>
-
-        <!-- 5. Eco Point -->
-        <div class="p-6 rounded-2xl border-2 border-emerald-100 hover:border-brand-green bg-white hover:shadow-xl transition flex flex-col justify-between">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black text-lg flex items-center justify-center">5</span>
-              <div class="p-2.5 rounded-xl bg-yellow-50 text-yellow-600">
-                <i data-lucide="coins" class="w-6 h-6"></i>
-              </div>
-            </div>
-            <h3 class="text-xl font-heading font-extrabold text-slate-800">Eco Point</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Mahasiswa memperoleh poin penghargaan atas setiap aktivitas ramah lingkungan yang dilakukan di kawasan kampus.
-            </p>
-          </div>
-          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-bold text-brand-green">
-            <i data-lucide="check" class="w-4 h-4 mr-1"></i> Insentif & Poin Prestasi
-          </div>
-        </div>
-
-        <!-- 6. Food Waste Management -->
-        <div class="p-6 rounded-2xl border-2 border-emerald-100 hover:border-brand-green bg-white hover:shadow-xl transition flex flex-col justify-between">
-          <div class="space-y-4">
-            <div class="flex items-center justify-between">
-              <span class="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black text-lg flex items-center justify-center">6</span>
-              <div class="p-2.5 rounded-xl bg-teal-50 text-teal-600">
-                <i data-lucide="sprout" class="w-6 h-6"></i>
-              </div>
-            </div>
-            <h3 class="text-xl font-heading font-extrabold text-slate-800">Food Waste Management</h3>
-            <p class="text-slate-600 text-sm leading-relaxed">
-              Pengumpulan dan pengolahan limbah organik sisa makanan menjadi pupuk kompos untuk merawat keasrian taman kampus.
-            </p>
-          </div>
-          <div class="mt-6 pt-4 border-t border-slate-100 flex items-center text-xs font-bold text-brand-green">
-            <i data-lucide="check" class="w-4 h-4 mr-1"></i> Kompos Organik Kampus
-          </div>
-        </div>
-
       </div>
+
     </div>
   </section>
 
-  <!-- ================= 7 FAKULTAS PENGGERAK ================= -->
-  <section id="fakultas" class="py-16 bg-slate-100/70 border-y border-emerald-100">
+  <!-- 2. DAFTAR HARGA & TITIK SETOR RESMI (Bab 5.3 & 6.3) -->
+  <section id="hargatitik" class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <h2 class="text-2xl sm:text-3xl font-heading font-black text-brand-darkgreen">
-          7 FAKULTAS PENGGERAK DI UIGM
+        <h2 class="text-2xl sm:text-3xl font-heading font-black text-uigm-darkgreen">
+          Daftar Harga Beli & Titik Setor Kampus
         </h2>
-        <p class="text-sm sm:text-base text-slate-600 mt-2">
-          Setiap fakultas di lingkungan Universitas Indo Global Mandiri berkolaborasi membawa peran nyata.
+        <p class="text-slate-600 text-sm mt-1">
+          Harga dievaluasi berkala mengikuti bank sampah induk dan pengepul resmi Kota Palembang.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- FK -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3 hover:border-brand-green transition">
-          <div class="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center font-bold text-sm shrink-0">1</div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm">Fakultas Kedokteran</h4>
-            <p class="text-xs text-slate-500 mt-1">Sanitasi higienis & edukasi kesehatan lingkungan bebas polusi plastik.</p>
-          </div>
-        </div>
-
-        <!-- Fasilkom/Sains -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3 hover:border-brand-green transition">
-          <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">2</div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm">Fakultas Ilmu Komputer dan Sains</h4>
-            <p class="text-xs text-slate-500 mt-1">Platform digital paperless, IoT smart bin, dan sistem pelacakan Eco Point.</p>
-          </div>
-        </div>
-
-        <!-- Ekonomi -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3 hover:border-brand-green transition">
-          <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center font-bold text-sm shrink-0">3</div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm">Fakultas Ekonomi</h4>
-            <p class="text-xs text-slate-500 mt-1">Ekonomi sirkular, tata kelola finansial Bank Sampah, dan audit limbah.</p>
-          </div>
-        </div>
-
-        <!-- Teknik -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3 hover:border-brand-green transition">
-          <div class="w-8 h-8 rounded-lg bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-sm shrink-0">4</div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm">Fakultas Teknik</h4>
-            <p class="text-xs text-slate-500 mt-1">Pengembangan mesin komposter, lubang biopori, dan efisiensi energi gedung.</p>
-          </div>
-        </div>
-
-        <!-- FIPB DKV -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3 hover:border-brand-green transition">
-          <div class="w-8 h-8 rounded-lg bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-sm shrink-0">5</div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm">Fakultas Ilmu Pemerintahan dan Budaya DKV</h4>
-            <p class="text-xs text-slate-500 mt-1">Kampanye kreatif visual, poster edukasi lingkungan, serta regulasi kampus.</p>
-          </div>
-        </div>
-
-        <!-- FKIP -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3 hover:border-brand-green transition">
-          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-sm shrink-0">6</div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm">Fakultas Keguruan dan Ilmu Pendidikan</h4>
-            <p class="text-xs text-slate-500 mt-1">Edukasi pembentukan karakter peduli lingkungan dan pengabdian masyarakat.</p>
-          </div>
-        </div>
-
-        <!-- Bisnis Syariah -->
-        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-start gap-3 hover:border-brand-green transition sm:col-span-2 lg:col-span-2">
-          <div class="w-8 h-8 rounded-lg bg-teal-100 text-teal-600 flex items-center justify-center font-bold text-sm shrink-0">7</div>
-          <div>
-            <h4 class="font-bold text-slate-800 text-sm">Fakultas Bisnis Syariah</h4>
-            <p class="text-xs text-slate-500 mt-1">Kaidah fiqih pelestarian lingkungan (*Hifzh al-Bi'ah*) dan etika anti-mubazir.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ECO POINT SIMULATOR (JAVASCRIPT LOGIC) ================= -->
-  <section id="kalkulator" class="py-20 bg-white">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <div class="text-center mb-12">
-        <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full font-bold text-xs uppercase tracking-wider">Fitur Interaktif #1</span>
-        <h2 class="text-3xl font-heading font-extrabold text-brand-darkgreen mt-2">Kalkulator Eco Point Mandiri</h2>
-        <p class="text-slate-600 text-sm max-w-xl mx-auto mt-1">Centang kebiasaan hijau yang Anda lakukan hari ini di UIGM untuk menghitung akumulasi skor dan reduksi karbon!</p>
-      </div>
-
-      <div class="bg-slate-50 p-6 sm:p-8 rounded-3xl border border-emerald-200 shadow-lg grid grid-cols-1 md:grid-cols-12 gap-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <!-- Checklist Form -->
-        <div class="md:col-span-7 space-y-3">
-          <h3 class="font-bold text-slate-800 text-base mb-2">Aksi Anda Hari Ini:</h3>
-          
-          <label class="flex items-center gap-3.5 p-3.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-green transition">
-            <input type="checkbox" class="eco-checkbox w-5 h-5 accent-emerald-600 rounded" value="25" data-co2="0.3">
-            <div class="text-sm">
-              <span class="font-bold text-slate-800 block">Membawa Tumbler & Tolak Botol Plastik</span>
-              <span class="text-xs text-slate-500">+25 Poin | Mencegah 0.3 kg CO₂</span>
-            </div>
-          </label>
+        <!-- Tabel Harga Sampah Anorganik & B3 -->
+        <div class="lg:col-span-7 bg-slate-50 p-6 rounded-3xl border border-slate-200">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-heading font-bold text-slate-800 text-base flex items-center gap-2">
+              <i data-lucide="tag" class="w-4 h-4 text-emerald-700"></i> Tabel Kategori Sampah
+            </h3>
+            <span class="text-xs text-slate-500">Update Terakhir: Fase 2</span>
+          </div>
 
-          <label class="flex items-center gap-3.5 p-3.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-green transition">
-            <input type="checkbox" class="eco-checkbox w-5 h-5 accent-emerald-600 rounded" value="20" data-co2="0.2">
-            <div class="text-sm">
-              <span class="font-bold text-slate-800 block">Bawa Kotak Makan Pribadi ke Green Canteen</span>
-              <span class="text-xs text-slate-500">+20 Poin | Mencegah 0.2 kg CO₂</span>
-            </div>
-          </label>
-
-          <label class="flex items-center gap-3.5 p-3.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-green transition">
-            <input type="checkbox" class="eco-checkbox w-5 h-5 accent-emerald-600 rounded" value="40" data-co2="0.5">
-            <div class="text-sm">
-              <span class="font-bold text-slate-800 block">Setor Sampah Botol/Kertas ke Bank Sampah</span>
-              <span class="text-xs text-slate-500">+40 Poin | Mencegah 0.5 kg CO₂</span>
-            </div>
-          </label>
-
-          <label class="flex items-center gap-3.5 p-3.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-green transition">
-            <input type="checkbox" class="eco-checkbox w-5 h-5 accent-emerald-600 rounded" value="15" data-co2="0.1">
-            <div class="text-sm">
-              <span class="font-bold text-slate-800 block">Tugas Kuliah & Dokumen 100% Paperless Digital</span>
-              <span class="text-xs text-slate-500">+15 Poin | Mencegah 0.1 kg CO₂</span>
-            </div>
-          </label>
-
-          <label class="flex items-center gap-3.5 p-3.5 bg-white rounded-xl border border-slate-200 cursor-pointer hover:border-brand-green transition">
-            <input type="checkbox" class="eco-checkbox w-5 h-5 accent-emerald-600 rounded" value="30" data-co2="0.4">
-            <div class="text-sm">
-              <span class="font-bold text-slate-800 block">Habiskan Makanan Tanpa Sisa (Zero Food Waste)</span>
-              <span class="text-xs text-slate-500">+30 Poin | Mencegah 0.4 kg CO₂</span>
-            </div>
-          </label>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-emerald-100/70 text-uigm-darkgreen text-xs uppercase font-extrabold">
+                <tr>
+                  <th class="p-3 rounded-l-xl">Kategori</th>
+                  <th class="p-3">Kelompok</th>
+                  <th class="p-3">Harga / kg</th>
+                  <th class="p-3 rounded-r-xl">Ketentuan SOP</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 text-xs sm:text-sm">
+                <tr>
+                  <td class="p-3 font-bold text-slate-800">Plastik PET (Botol Bening)</td>
+                  <td class="p-3 text-slate-600">Anorganik</td>
+                  <td class="p-3 font-black text-uigm-darkgreen">Rp 3.500</td>
+                  <td class="p-3 text-slate-500 text-xs">Bersih, kosong, tutup dilepas</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold text-slate-800">Kardus & Karton Tebal</td>
+                  <td class="p-3 text-slate-600">Anorganik</td>
+                  <td class="p-3 font-black text-uigm-darkgreen">Rp 1.800</td>
+                  <td class="p-3 text-slate-500 text-xs">Kering, dilipat dan diikat rapi</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold text-slate-800">Kertas HVS / Buku Bekas</td>
+                  <td class="p-3 text-slate-600">Anorganik</td>
+                  <td class="p-3 font-black text-uigm-darkgreen">Rp 2.200</td>
+                  <td class="p-3 text-slate-500 text-xs">Bebas staples & plastik mika</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold text-slate-800">Kaleng Aluminium / Logam</td>
+                  <td class="p-3 text-slate-600">Anorganik</td>
+                  <td class="p-3 font-black text-uigm-darkgreen">Rp 9.000</td>
+                  <td class="p-3 text-slate-500 text-xs">Dicuci dan dipipihkan</td>
+                </tr>
+                <tr class="bg-amber-50/50">
+                  <td class="p-3 font-bold text-slate-800">Limbah B3 Rumah Tangga (Baterai/Lampu)</td>
+                  <td class="p-3 text-amber-700 font-semibold">B3 Khusus</td>
+                  <td class="p-3 font-bold text-amber-700">Rp 0 (Drop Poin)</td>
+                  <td class="p-3 text-amber-800 text-xs">Disalurkan ke pengolah resmi berizin</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <!-- Result Card Dynamic -->
-        <div class="md:col-span-5 bg-gradient-to-br from-brand-darkgreen to-emerald-800 text-white p-6 rounded-2xl flex flex-col justify-between shadow-md">
-          <div>
-            <span class="text-xs uppercase tracking-widest text-emerald-200 font-bold">Total Eco Points Hari Ini</span>
-            <div class="mt-3 flex items-baseline gap-2">
-              <span id="total-points" class="text-5xl font-black">0</span>
-              <span class="text-emerald-200 font-bold text-lg">Poin</span>
-            </div>
+        <!-- Titik Setor Kampus -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm">
+            <h3 class="font-heading font-bold text-slate-800 text-base mb-3 flex items-center gap-2">
+              <i data-lucide="map-pin" class="w-4 h-4 text-uigm-amber"></i> Titik Setor & Jadwal Layanan
+            </h3>
             
-            <div class="mt-3 text-xs text-emerald-100 flex items-center gap-1.5">
-              <i data-lucide="leaf" class="w-4 h-4 text-brand-yellow"></i>
-              Reduksi Emisi: <b id="total-co2" class="text-white">0.0 kg</b> CO₂
-            </div>
+            <div class="space-y-3">
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="flex justify-between items-start">
+                  <span class="font-bold text-slate-800 text-sm">Titik Utama: Gedung Bank Sampah UIGM</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Aktif</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-1">Area Workshop Teknik & Belakang Kantin Kampus</p>
+                <div class="text-[11px] text-uigm-darkgreen font-semibold mt-2 flex items-center gap-1">
+                  <i data-lucide="clock" class="w-3.5 h-3.5"></i> Senin – Jumat: 08.30 – 15.30 WIB
+                </div>
+              </div>
 
-            <div class="mt-6 pt-5 border-t border-emerald-600/50">
-              <span class="text-xs text-emerald-200 font-semibold block">Tingkatan Penghargaan:</span>
-              <div id="badge-status" class="mt-1 font-heading font-extrabold text-lg text-brand-yellow">
-                🌱 Pemula Hijau UIGM
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="flex justify-between items-start">
+                  <span class="font-bold text-slate-800 text-sm">Drop Point Fasilkom & Fakultas Ekonomi</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Aktif</span>
+                </div>
+                <p class="text-xs text-slate-600 mt-1">Lobi Gedung B (Khusus Kertas HVS & Botol PET)</p>
+                <div class="text-[11px] text-uigm-darkgreen font-semibold mt-2 flex items-center gap-1">
+                  <i data-lucide="clock" class="w-3.5 h-3.5"></i> Selasa & Kamis: 10.00 – 14.00 WIB
+                </div>
               </div>
             </div>
           </div>
 
-          <p class="text-[11px] text-emerald-200 mt-6 leading-relaxed">
-            *Poin ini diakumulasikan dalam database kemahasiswaan UIGM untuk konversi sertifikat keaktifan.
-          </p>
+          <!-- Opsi Penarikan Saldo -->
+          <div class="bg-uigm-amberlight p-5 rounded-2xl border border-amber-200 text-xs text-amber-900 space-y-1">
+            <span class="font-bold uppercase tracking-wider block text-amber-950">Aturan Penarikan Saldo (Bab 6.3):</span>
+            <p>Saldo dapat ditarik tunai/transfer, ditukar produk kompos/maggot, voucher Green Canteen, atau didonasikan ke program sosial kampus atas persetujuan bendahara.</p>
+          </div>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- ================= KARTU KOMITMEN MAHASISWA ================= -->
-  <section id="komitmen" class="py-20 bg-emerald-50/50 border-t border-emerald-100">
+  <!-- 3. PENDAFTARAN NASABAH & GENERATOR QR (Bab 5.3 & 6.1) -->
+  <section id="daftar-nasabah" class="py-16 bg-slate-50 border-y border-emerald-100">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center mb-10">
-        <span class="px-3 py-1 bg-emerald-200/60 text-brand-darkgreen rounded-full font-bold text-xs uppercase tracking-wider">Fitur Interaktif #2</span>
-        <h2 class="text-3xl font-heading font-black text-brand-darkgreen mt-2">Kartu Komitmen Hijau Mahasiswa</h2>
-        <p class="text-slate-600 text-sm mt-1">Daftarkan nama Anda, pilih fakultas, dan cetak kartu resmi pelopor Zero Waste!</p>
+        <span class="px-3.5 py-1 bg-emerald-100 text-uigm-darkgreen rounded-full font-bold text-xs">Pendaftaran Digital Mandiri</span>
+        <h2 class="text-3xl font-heading font-black text-uigm-darkgreen mt-2">Daftar Nasabah & Kartu QR Digital</h2>
+        <p class="text-slate-600 text-sm mt-1">Mendukung mahasiswa, dosen, tenaga kependidikan (tendik), dan warga sekitar kampus.</p>
       </div>
 
-      <div class="bg-white p-6 sm:p-10 rounded-3xl border border-emerald-100 shadow-xl">
-        <form id="commitmentForm" class="space-y-5">
+      <div class="bg-white p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
+        <form id="nasabahRegistrationForm" class="space-y-5">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Nama Lengkap</label>
-              <input type="text" id="inputName" required placeholder="Contoh: Muhammad Rizky" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm">
+              <input type="text" id="regName" required placeholder="Contoh: Ahmad Faisal" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-uigm-darkgreen text-sm">
             </div>
             <div>
-              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Nomor Induk Mahasiswa (NIM)</label>
-              <input type="text" id="inputNim" required placeholder="Contoh: 202411001" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm">
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">NIM / NIDN / NIK</label>
+              <input type="text" id="regId" required placeholder="Contoh: 2024110023" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-uigm-darkgreen text-sm">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Kategori Pengguna</label>
+              <select id="regCategory" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-uigm-darkgreen text-sm bg-white">
+                <option value="Mahasiswa" selected>Mahasiswa</option>
+                <option value="Dosen">Dosen</option>
+                <option value="Tenaga Kependidikan">Tenaga Kependidikan (Tendik)</option>
+                <option value="Warga Sekitar">Warga Sekitar Kampus</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Fakultas / Unit Kerja</label>
+              <select id="regFaculty" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-uigm-darkgreen text-sm bg-white">
+                <option value="Fakultas Kedokteran">1. Fakultas Kedokteran</option>
+                <option value="Fakultas Ilmu Komputer dan Sains" selected>2. Fakultas Ilmu Komputer dan Sains</option>
+                <option value="Fakultas Ekonomi">3. Fakultas Ekonomi</option>
+                <option value="Fakultas Teknik">4. Fakultas Teknik</option>
+                <option value="Fakultas Ilmu Pemerintahan dan Budaya Desain Komunikasi Visual">5. Fakultas Ilmu Pemerintahan dan Budaya DKV</option>
+                <option value="Fakultas Keguruan dan Ilmu Pendidikan">6. Fakultas Keguruan dan Ilmu Pendidikan</option>
+                <option value="Fakultas Bisnis Syariah">7. Fakultas Bisnis Syariah</option>
+                <option value="Unit Kerja / Non-Fakultas">Unit Kerja Lain / Warga</option>
+              </select>
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Pilih 7 Fakultas UIGM</label>
-            <select id="inputFaculty" required class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm bg-white">
-              <option value="" disabled selected>-- Pilih Fakultas Anda --</option>
-              <option value="Fakultas Kedokteran">1. Fakultas Kedokteran</option>
-              <option value="Fakultas Ilmu Komputer dan Sains">2. Fakultas Ilmu Komputer dan Sains</option>
-              <option value="Fakultas Ekonomi">3. Fakultas Ekonomi</option>
-              <option value="Fakultas Teknik">4. Fakultas Teknik</option>
-              <option value="Fakultas Ilmu Pemerintahan dan Budaya Desain Komunikasi Visual">5. Fakultas Ilmu Pemerintahan dan Budaya Desain Komunikasi Visual</option>
-              <option value="Fakultas Keguruan dan Ilmu Pendidikan">6. Fakultas Keguruan dan Ilmu Pendidikan</option>
-              <option value="Fakultas Bisnis Syariah">7. Fakultas Bisnis Syariah</option>
-            </select>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Nomor WhatsApp Aktif</label>
+            <input type="tel" id="regPhone" required placeholder="08xxxxxxxxxx (untuk notifikasi setoran)" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-uigm-darkgreen text-sm">
           </div>
 
-          <div>
-            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Ikrar Utama Anda</label>
-            <input type="text" id="inputPledge" required placeholder="Contoh: Selalu membawa tumbler pribadi & memilah sampah setiap hari" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-green text-sm">
+          <!-- Persetujuan UU PDP (Bab 8.2 Dokumen) -->
+          <div class="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <input type="checkbox" id="regConsent" required class="w-4 h-4 accent-uigm-darkgreen rounded mt-0.5">
+            <label for="regConsent" class="text-xs text-slate-600 leading-tight">
+              Saya menyetujui pemrosesan data untuk pencatatan bank sampah sesuai <b>UU Pelindungan Data Pribadi (UU No. 27 Tahun 2022)</b> & verifikasi SDG Center UIGM.
+            </label>
           </div>
 
-          <button type="submit" class="w-full py-3.5 bg-brand-green hover:bg-brand-darkgreen text-white font-bold rounded-xl shadow-lg transition flex items-center justify-center gap-2">
-            <i data-lucide="badge-check" class="w-5 h-5"></i> Generate Kartu Komitmen
+          <button type="submit" class="w-full py-3.5 bg-uigm-darkgreen hover:bg-emerald-900 text-white font-bold rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+            <i data-lucide="badge-check" class="w-5 h-5 text-uigm-amber"></i> Terbitkan Kartu QR Nasabah
           </button>
         </form>
 
-        <!-- Preview Card Target -->
-        <div id="cardResult" class="hidden mt-10 pt-8 border-t border-slate-200">
-          <div id="printableCard" class="max-w-md mx-auto p-6 rounded-3xl bg-gradient-to-br from-brand-darkgreen via-emerald-800 to-teal-950 text-white shadow-2xl relative overflow-hidden border-2 border-emerald-400">
+        <!-- Dynamic Card Output (Sesuai Bab 6.5 Layar Utama Nasabah) -->
+        <div id="qrCardOutput" class="hidden mt-8 pt-8 border-t border-slate-200">
+          <div id="printableQrCard" class="max-w-md mx-auto p-6 rounded-3xl bg-gradient-to-br from-uigm-darkgreen via-emerald-800 to-slate-900 text-white shadow-2xl relative border-2 border-uigm-amber">
+            
             <div class="flex items-center justify-between border-b border-emerald-600/60 pb-3">
               <div class="flex items-center gap-2">
-                <span class="w-8 h-8 rounded-xl bg-white text-brand-darkgreen font-black flex items-center justify-center text-xs shadow">UIGM</span>
+                <span class="w-8 h-8 rounded-lg bg-white text-uigm-darkgreen font-black flex items-center justify-center text-xs">UIGM</span>
                 <div>
-                  <span class="block text-[11px] font-black tracking-widest text-emerald-200">ZERO WASTE PLEDGE</span>
-                  <span class="block text-[9px] text-emerald-400">Universitas Indo Global Mandiri</span>
+                  <span class="block text-xs font-bold tracking-widest text-uigm-amber">KARTU NASABAH DIGITAL</span>
+                  <span class="block text-[9px] text-emerald-200">Zero Waste Campus UIGM</span>
                 </div>
               </div>
-              <i data-lucide="award" class="w-6 h-6 text-brand-yellow"></i>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-400 text-slate-900">FASE 2 MVP</span>
             </div>
 
-            <div class="mt-5 space-y-3">
+            <div class="my-5 flex items-center justify-between gap-4">
               <div>
-                <span class="text-[10px] uppercase text-emerald-300 font-bold">Nama Mahasiswa</span>
-                <h4 id="cardName" class="text-xl font-heading font-black tracking-wide text-white">Nama</h4>
-                <p id="cardNim" class="text-xs text-emerald-200 font-mono">NIM: -</p>
+                <span class="text-[10px] text-emerald-300 font-semibold uppercase">Nama Nasabah:</span>
+                <h4 id="outCardName" class="text-lg font-heading font-black text-white">Nama</h4>
+                <p id="outCardId" class="text-xs font-mono text-emerald-200">ID: -</p>
+                <p id="outCardFaculty" class="text-xs text-slate-300 mt-1">Fakultas</p>
               </div>
 
-              <div>
-                <span class="text-[10px] uppercase text-emerald-300 font-bold">Asal Fakultas</span>
-                <p id="cardFaculty" class="text-sm font-semibold text-white">Fakultas -</p>
-              </div>
-
-              <div class="p-3.5 rounded-2xl bg-black/25 border border-white/10 mt-3">
-                <span class="text-[10px] uppercase text-brand-yellow font-bold">Ikrar Ramah Lingkungan:</span>
-                <p id="cardPledge" class="text-xs italic text-emerald-100 mt-1 leading-relaxed">"Ikrar"</p>
+              <!-- Simulasi QR Code Nasabah -->
+              <div class="bg-white p-2.5 rounded-2xl shadow-inner text-center shrink-0">
+                <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=UIGM-DEFAULT" alt="QR Nasabah" class="w-24 h-24">
+                <span class="text-[9px] font-mono text-slate-700 block mt-1">SCAN DI PETUGAS</span>
               </div>
             </div>
 
-            <div class="mt-5 pt-3 border-t border-emerald-700/60 flex items-center justify-between text-[10px] text-emerald-300">
-              <span>Status: Duta Kampus Bersih</span>
-              <span>UIGM Go Green 2026</span>
+            <div class="p-3 bg-black/25 rounded-xl border border-white/10 flex justify-between items-center text-xs">
+              <div>
+                <span class="text-[10px] text-slate-400 block">Saldo Awal Tersedia</span>
+                <span class="font-black text-uigm-amber text-base">Rp 0</span>
+              </div>
+              <span class="px-2 py-1 bg-emerald-500/20 text-emerald-300 text-[10px] rounded-lg">Nasabah Aktif</span>
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-emerald-700/60 text-[10px] text-emerald-300 flex justify-between">
+              <span>SDG Center UIGM</span>
+              <span>Palembang, Indonesia</span>
             </div>
           </div>
 
-          <div class="text-center mt-5">
-            <button onclick="window.print()" class="px-5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-brand-darkgreen font-bold text-xs inline-flex items-center gap-2 border border-slate-300 transition">
-              <i data-lucide="printer" class="w-4 h-4"></i> Cetak / Simpan Kartu (PDF)
+          <div class="text-center mt-4">
+            <button onclick="window.print()" class="px-5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold inline-flex items-center gap-2 border border-slate-300">
+              <i data-lucide="printer" class="w-4 h-4 text-emerald-700"></i> Cetak / Simpan Kartu QR (PDF)
             </button>
           </div>
         </div>
@@ -587,140 +433,554 @@
     </div>
   </section>
 
-  <!-- ================= TECH STACK DOCUMENTATION SECTION ================= -->
-  <section id="techstack" class="py-16 bg-slate-900 text-white">
+  <!-- 4. SIMULATOR TRANSAKSI SETORAN PETUGAS (Bab 6.2 & 6.5) -->
+  <section id="portal-petugas" class="py-16 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
+        <div>
+          <span class="px-3 py-1 bg-amber-100 text-amber-900 rounded-full font-bold text-xs uppercase">Simulasi Input Petugas (Fase 2 MVP)</span>
+          <h2 class="text-2xl sm:text-3xl font-heading font-black text-uigm-darkgreen mt-1">Aplikasi Pencatatan Setoran</h2>
+          <p class="text-xs sm:text-sm text-slate-600">Alur cepat: Timbang &rarr; Input berat &rarr; Saldo & rekap otomatis bertambah.</p>
+        </div>
+        <div class="px-3 py-1.5 rounded-lg bg-emerald-50 text-uigm-darkgreen text-xs font-bold border border-emerald-200 flex items-center gap-1.5">
+          <i data-lucide="wifi" class="w-4 h-4 text-emerald-600"></i> Mode Online / Auto-Sync
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Form Transaksi Petugas -->
+        <div class="lg:col-span-6 bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-4">
+          <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+            <i data-lucide="scale" class="w-4 h-4 text-uigm-darkgreen"></i> Catat Transaksi Baru
+          </h3>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">ID / Nama Nasabah Terdaftar</label>
+            <input type="text" id="txNasabahName" value="Ahmad Faisal (2024110023)" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-sm bg-white">
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Kategori</label>
+              <select id="txCategory" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs sm:text-sm bg-white">
+                <option value="3500">Plastik PET (Rp 3.500/kg)</option>
+                <option value="1800">Kardus (Rp 1.800/kg)</option>
+                <option value="2200">Kertas HVS (Rp 2.200/kg)</option>
+                <option value="9000">Kaleng Logam (Rp 9.000/kg)</option>
+                <option value="0">Limbah B3 (Rp 0 - Aman)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Berat Timbangan (Kg)</label>
+              <input type="number" step="0.1" id="txWeight" value="2.5" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm bg-white font-bold text-uigm-darkgreen">
+            </div>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-emerald-200 flex justify-between items-center text-xs">
+            <span class="text-slate-600">Estimasi Nilai Tambah Saldo:</span>
+            <span id="txSubtotal" class="font-black text-uigm-darkgreen text-sm">Rp 8.750</span>
+          </div>
+
+          <button id="btnSubmitTx" class="w-full py-3 bg-uigm-amber hover:bg-amber-600 text-slate-900 font-bold rounded-xl shadow transition flex items-center justify-center gap-2 text-sm">
+            <i data-lucide="check" class="w-4 h-4"></i> Simpan Setoran & Rekap
+          </button>
+        </div>
+
+        <!-- Rekap Riwayat Transaksi Lokal (Audit Log Bab 6.4) -->
+        <div class="lg:col-span-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                <i data-lucide="history" class="w-4 h-4 text-emerald-700"></i> Riwayat 3 Transaksi Terakhir
+              </h3>
+              <span class="text-[11px] text-slate-500">Log Audit Sistem</span>
+            </div>
+
+            <div id="txHistoryList" class="space-y-2.5 text-xs">
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex justify-between items-center">
+                <div>
+                  <span class="font-bold text-slate-800 block">Plastik PET (3.0 kg)</span>
+                  <span class="text-[10px] text-slate-500">M. Rizky - FKIP • Pukul 09:15 WIB</span>
+                </div>
+                <span class="font-black text-uigm-darkgreen text-xs">+ Rp 10.500</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex justify-between items-center">
+                <div>
+                  <span class="font-bold text-slate-800 block">Kardus (5.2 kg)</span>
+                  <span class="text-[10px] text-slate-500">Dosen FE • Pukul 08:40 WIB</span>
+                </div>
+                <span class="font-black text-uigm-darkgreen text-xs">+ Rp 9.360</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center text-[11px] text-slate-500">
+            <span>Standar: Kode Baku Kategori</span>
+            <span class="text-emerald-700 font-semibold">Tersimpan di Satu Basis Data</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. UNIT PENGOLAHAN ORGANIK: MAGGOT & KOMPOS (Bab 4 & 5.2) -->
+  <section class="py-16 bg-slate-50 border-t border-emerald-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-mono mb-2">
-          <i data-lucide="terminal" class="w-4 h-4"></i> Architecture Overview
-        </div>
-        <h2 class="text-2xl sm:text-3xl font-heading font-black text-white">
-          Tech Stack yang Digunakan
+        <span class="px-3 py-1 bg-emerald-100 text-uigm-darkgreen rounded-full font-bold text-xs">Sirkular Organik Kampus</span>
+        <h2 class="text-2xl sm:text-3xl font-heading font-black text-uigm-darkgreen mt-2">
+          Unit Maggot BSF, Kompos & Pupuk Cair
         </h2>
-        <p class="text-sm text-slate-400 mt-1">
-          Daftar teknologi dan pustaka yang menyusun web Zero Waste Campus UIGM ini:
+        <p class="text-slate-600 text-sm mt-1">
+          Sisa makanan dari Green Canteen dan sampah taman diolah menjadi produk bernilai tinggi.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
-        
-        <!-- Stack 1 -->
-        <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-2">
-          <div class="flex items-center gap-2 text-emerald-400 font-bold">
-            <i data-lucide="file-code" class="w-5 h-5"></i> 1. HTML5 (Semantic)
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Unit 1 -->
+        <div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
+            <i data-lucide="bug" class="w-5 h-5"></i>
           </div>
-          <p class="text-xs text-slate-300">Menyusun struktur hierarki layout, aksesibilitas screen reader, section terstruktur, dan form interaktif.</p>
+          <h3 class="font-heading font-bold text-slate-800 text-lg">Biokonversi Maggot BSF</h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Menghabiskan sisa makanan organik basah kantin secara cepat. Larva dipanen menjadi pakan berprotein tinggi untuk perikanan dan unggas.
+          </p>
+          <div class="pt-2 text-xs font-bold text-emerald-700 flex items-center gap-1">
+            <i data-lucide="check" class="w-4 h-4"></i> Kapasitas: 40 kg sisa makanan / hari
+          </div>
         </div>
 
-        <!-- Stack 2 -->
-        <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-2">
-          <div class="flex items-center gap-2 text-sky-400 font-bold">
-            <i data-lucide="palette" class="w-5 h-5"></i> 2. Tailwind CSS v3
+        <!-- Unit 2 -->
+        <div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-100 text-uigm-darkgreen flex items-center justify-center font-bold">
+            <i data-lucide="sprout" class="w-5 h-5"></i>
           </div>
-          <p class="text-xs text-slate-300">Styling responsif kilat dengan utility-first classes, palet warna brand khusus, dan auto-layout mobile-friendly.</p>
+          <h3 class="font-heading font-bold text-slate-800 text-lg">Kompos Granul & Organik</h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Dedaunan dan ranting dari taman kampus dicacah, difermentasi dengan EM4, lalu diayak menjadi pupuk organik padat penyubur tanah.
+          </p>
+          <div class="pt-2 text-xs font-bold text-emerald-700 flex items-center gap-1">
+            <i data-lucide="check" class="w-4 h-4"></i> Produksi: 250 kg kompos / siklus
+          </div>
         </div>
 
-        <!-- Stack 3 -->
-        <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-2">
-          <div class="flex items-center gap-2 text-yellow-400 font-bold">
-            <i data-lucide="cpu" class="w-5 h-5"></i> 3. Vanilla JavaScript (ES6+)
+        <!-- Unit 3 -->
+        <div class="bg-white p-6 rounded-3xl border border-emerald-100 shadow-sm space-y-3">
+          <div class="w-10 h-10 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
+            <i data-lucide="droplet" class="w-5 h-5"></i>
           </div>
-          <p class="text-xs text-slate-300">Menghitung kalkulasi Eco Point & reduksi CO₂ secara dinamis, meng-generate kartu, dan print PDF tanpa library berat.</p>
-        </div>
-
-        <!-- Stack 4 -->
-        <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700 space-y-2">
-          <div class="flex items-center gap-2 text-purple-400 font-bold">
-            <i data-lucide="feather" class="w-5 h-5"></i> 4. Lucide Icons & Fonts
+          <h3 class="font-heading font-bold text-slate-800 text-lg">Pupuk Organik Cair (POC)</h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed">
+            Ekstrak cairan fermentasi limbah buah dan sayuran yang kaya hara mikro, dikemas higienis untuk kebutuhan tanaman hias kampus & komersial.
+          </p>
+          <div class="pt-2 text-xs font-bold text-emerald-700 flex items-center gap-1">
+            <i data-lucide="check" class="w-4 h-4"></i> Kemasan: Botol 500 ml & 1 Liter
           </div>
-          <p class="text-xs text-slate-300">Ikon SVG modern dan font tipografi Google Fonts (*Poppins* & *Plus Jakarta Sans*) untuk estetika visual.</p>
         </div>
-
       </div>
 
     </div>
   </section>
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="bg-brand-darkgreen text-white py-10 border-t border-emerald-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
-      <div>
-        <h3 class="font-heading font-black text-xl text-white">ZERO WASTE CAMPUS UIGM</h3>
-        <p class="text-xs text-emerald-300 mt-1">Universitas Indo Global Mandiri • Diktisaintek Berdampak • SDGs 2026</p>
+  <!-- 6. KATALOG PRODUK HIJAU & WHATSAPP ORDER (Bab 5.2 & 5.3) -->
+  <section id="katalog-produk" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3 mb-10">
+        <div>
+          <span class="px-3 py-1 bg-amber-100 text-amber-900 rounded-full font-bold text-xs uppercase">Hilirisasi Riset Mahasiswa</span>
+          <h2 class="text-2xl sm:text-3xl font-heading font-black text-uigm-darkgreen mt-1">Katalog Produk Daur Ulang & Eco-Print</h2>
+          <p class="text-slate-600 text-sm">Hasil olahan unit kampus UIGM dapat dipesan langsung melalui WhatsApp.</p>
+        </div>
+        <a href="https://wa.me/6281234567890?text=Halo%20Admin%20Zero%20Waste%20UIGM,%20saya%20tertarik%20dengan%20produk%20kampus" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-xs flex items-center gap-2">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> Hubungi Admin Produk
+        </a>
       </div>
-      <p class="text-xs text-emerald-400">
-        &copy; 2026 Universitas Indo Global Mandiri. Menuju Kampus Hijau, Bersih, dan Berdaya Saing.
-      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Produk 1 -->
+        <div class="rounded-2xl border border-slate-200 overflow-hidden bg-white shadow-sm flex flex-col justify-between hover:shadow-md transition">
+          <div class="p-5 space-y-2">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">Unit Kompos</span>
+            <h4 class="font-bold text-slate-800 text-base">Pupuk Kompos UIGM (5 kg)</h4>
+            <p class="text-xs text-slate-500">Kaya unsur hara, remah, steril dari biji gulma.</p>
+          </div>
+          <div class="p-5 pt-0 flex items-center justify-between">
+            <span class="font-black text-uigm-darkgreen text-sm">Rp 15.000</span>
+            <a href="https://wa.me/6281234567890?text=Pesan%20Kompos%205kg" target="_blank" class="px-3 py-1.5 rounded-lg bg-uigm-amber text-slate-900 font-bold text-xs">Pesan</a>
+          </div>
+        </div>
+
+        <!-- Produk 2 -->
+        <div class="rounded-2xl border border-slate-200 overflow-hidden bg-white shadow-sm flex flex-col justify-between hover:shadow-md transition">
+          <div class="p-5 space-y-2">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">Unit Maggot</span>
+            <h4 class="font-bold text-slate-800 text-base">Dried Maggot BSF (100 gr)</h4>
+            <p class="text-xs text-slate-500">Pakan ikan koi, arwana, dan burung kicau.</p>
+          </div>
+          <div class="p-5 pt-0 flex items-center justify-between">
+            <span class="font-black text-uigm-darkgreen text-sm">Rp 20.000</span>
+            <a href="https://wa.me/6281234567890?text=Pesan%20Dried%20Maggot" target="_blank" class="px-3 py-1.5 rounded-lg bg-uigm-amber text-slate-900 font-bold text-xs">Pesan</a>
+          </div>
+        </div>
+
+        <!-- Produk 3 -->
+        <div class="rounded-2xl border border-slate-200 overflow-hidden bg-white shadow-sm flex flex-col justify-between hover:shadow-md transition">
+          <div class="p-5 space-y-2">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800">Unit POC</span>
+            <h4 class="font-bold text-slate-800 text-base">Pupuk Organik Cair (500 ml)</h4>
+            <p class="text-xs text-slate-500">Mempercepat tunas daun dan kesuburan bunga.</p>
+          </div>
+          <div class="p-5 pt-0 flex items-center justify-between">
+            <span class="font-black text-uigm-darkgreen text-sm">Rp 12.000</span>
+            <a href="https://wa.me/6281234567890?text=Pesan%20POC%20500ml" target="_blank" class="px-3 py-1.5 rounded-lg bg-uigm-amber text-slate-900 font-bold text-xs">Pesan</a>
+          </div>
+        </div>
+
+        <!-- Produk 4 -->
+        <div class="rounded-2xl border border-slate-200 overflow-hidden bg-white shadow-sm flex flex-col justify-between hover:shadow-md transition">
+          <div class="p-5 space-y-2">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-800">DKV & Kerajinan</span>
+            <h4 class="font-bold text-slate-800 text-base">Tote Bag Eco-Print Daun</h4>
+            <p class="text-xs text-slate-500">Kain blacu bermotif daun alami dari taman kampus.</p>
+          </div>
+          <div class="p-5 pt-0 flex items-center justify-between">
+            <span class="font-black text-uigm-darkgreen text-sm">Rp 45.000</span>
+            <a href="https://wa.me/6281234567890?text=Pesan%20ToteBag%20EcoPrint" target="_blank" class="px-3 py-1.5 rounded-lg bg-uigm-amber text-slate-900 font-bold text-xs">Pesan</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. KAMPUS SEHAT (SDG 3) & FAKULTAS KEDOKTERAN (Bab 5.2) -->
+  <section id="kampus-sehat" class="py-16 bg-emerald-50/40 border-y border-emerald-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-5 space-y-4">
+          <span class="px-3.5 py-1 bg-red-100 text-red-700 font-bold text-xs rounded-full inline-flex items-center gap-1.5">
+            <i data-lucide="heart-pulse" class="w-3.5 h-3.5"></i> Integrasi SDG 3 & Kampus Sehat
+          </span>
+          <h2 class="text-3xl font-heading font-black text-uigm-darkgreen leading-tight">
+            Sehat Manusianya, Bersih Lingkungannya
+          </h2>
+          <p class="text-slate-600 text-sm leading-relaxed">
+            Inisiatif ini didukung penuh oleh <b>Fakultas Kedokteran UIGM</b>. Lingkungan yang bebas sampah plastik dan sisa makanan yang terkelola menjamin sanitasi kampus higienis, bebas sarang vektor penyakit, serta mendorong gizi seimbang di kantin.
+          </p>
+
+          <div class="space-y-2 pt-2 text-xs">
+            <div class="flex items-center gap-2 text-slate-700 font-semibold">
+              <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i> Edukasi Perilaku Hidup Bersih & Sehat (PHBS) Mahasiswa
+            </div>
+            <div class="flex items-center gap-2 text-slate-700 font-semibold">
+              <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i> Menu Sehat Rendah Gula & Higienis di Green Canteen
+            </div>
+            <div class="flex items-center gap-2 text-slate-700 font-semibold">
+              <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i> Konseling & Kebugaran Mental Kampus Bebas Stres
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <i data-lucide="shield-alert" class="w-8 h-8 text-red-600 mb-2"></i>
+            <h4 class="font-bold text-slate-800 text-sm">Sanitasi Limbah Medis FK</h4>
+            <p class="text-xs text-slate-500 mt-1">Pemisahan limbah medis laboratorium secara terstandar tanpa bercampur sampah umum.</p>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <i data-lucide="apple" class="w-8 h-8 text-emerald-600 mb-2"></i>
+            <h4 class="font-bold text-slate-800 text-sm">Gizi Seimbang Tanpa Pengawet</h4>
+            <p class="text-xs text-slate-500 mt-1">Sertifikasi vendor makanan kantin oleh tim dokter gizi FK UIGM.</p>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <i data-lucide="smile" class="w-8 h-8 text-blue-600 mb-2"></i>
+            <h4 class="font-bold text-slate-800 text-sm">Health & Green Walk</h4>
+            <p class="text-xs text-slate-500 mt-1">Kegiatan jalan sehat mingguan sembari gerakan pungut sampah di jalur hijau kampus.</p>
+          </div>
+          <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+            <i data-lucide="calendar" class="w-8 h-8 text-amber-600 mb-2"></i>
+            <h4 class="font-bold text-slate-800 text-sm">Jadwal Edukasi Semester</h4>
+            <p class="text-xs text-slate-500 mt-1">Webinar PHBS rutin bersama pakar kesehatan lingkungan setiap semester.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 8. DASHBOARD MONITORING & BUKTI UI GREENMETRIC (Bab 7) -->
+  <section id="monitoring" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10">
+        <div>
+          <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full font-bold text-xs uppercase">Dashboard Monitoring Real-Time</span>
+          <h2 class="text-2xl sm:text-3xl font-heading font-black text-uigm-darkgreen mt-1">Bukti UI GreenMetric & SDGs</h2>
+          <p class="text-slate-600 text-sm">Menyajikan data agregat untuk pemenuhan indikator kriteria Waste (WS1–WS5) dan akreditasi.</p>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <button onclick="window.print()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold border border-slate-300 flex items-center gap-1.5">
+            <i data-lucide="download" class="w-4 h-4 text-emerald-700"></i> Ekspor Laporan (PDF)
+          </button>
+        </div>
+      </div>
+
+      <!-- Charts & Metric Visuals -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Grafik Tren Bulanan Pengolahan Sampah -->
+        <div class="lg:col-span-8 bg-slate-50 p-6 rounded-3xl border border-slate-200">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-slate-800 text-sm">Tren Volume Sampah Terolah (Kg / Bulan)</h3>
+            <span class="text-xs text-slate-500">Target UI GreenMetric 2026</span>
+          </div>
+          <div class="h-64 sm:h-72">
+            <canvas id="wasteChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Pemenuhan Kriteria UI GreenMetric (WS1–WS5) -->
+        <div class="lg:col-span-4 bg-slate-50 p-6 rounded-3xl border border-slate-200 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-slate-800 text-sm mb-4">Status Kriteria Waste (WS) UIGM</h3>
+            
+            <div class="space-y-3.5 text-xs">
+              <div>
+                <div class="flex justify-between font-semibold mb-1">
+                  <span>WS1: Daur Ulang Sampah Kampus</span>
+                  <span class="text-emerald-700 font-bold">85% (Tercapai)</span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-emerald-600 rounded-full" style="width: 85%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between font-semibold mb-1">
+                  <span>WS2: Program Pengurangan Kertas</span>
+                  <span class="text-emerald-700 font-bold">90% (Tercapai)</span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-emerald-600 rounded-full" style="width: 90%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between font-semibold mb-1">
+                  <span>WS3: Pengurangan Plastik Sekali Pakai</span>
+                  <span class="text-emerald-700 font-bold">78% (Tercapai)</span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-emerald-600 rounded-full" style="width: 78%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between font-semibold mb-1">
+                  <span>WS4: Pengolahan Sampah Organik</span>
+                  <span class="text-emerald-700 font-bold">82% (Tercapai)</span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-emerald-600 rounded-full" style="width: 82%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between font-semibold mb-1">
+                  <span>WS5: Pengelolaan Limbah Berbahaya (B3)</span>
+                  <span class="text-emerald-700 font-bold">95% (Tercapai)</span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                  <div class="h-full bg-emerald-600 rounded-full" style="width: 95%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 pt-3 border-t border-slate-200 text-[11px] text-slate-500">
+            Sumber data: Satu basis data terintegrasi bank sampah & unit kompos UIGM.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-uigm-darkgreen text-white py-12 border-t border-emerald-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 text-xs">
+      
+      <div class="md:col-span-6 space-y-3">
+        <h3 class="font-heading font-black text-xl text-white">ZERO WASTE CAMPUS & KAMPUS SEHAT</h3>
+        <p class="text-emerald-200 max-w-md leading-relaxed">
+          Universitas Indo Global Mandiri (UIGM) Palembang. Program terpadu pencatatan sampah digital, sirkular ekonomi, dan pemantauan SDGs berkelanjutan.
+        </p>
+        <span class="block text-uigm-amber font-semibold">Disusun untuk SDG Center UIGM</span>
+      </div>
+
+      <div class="md:col-span-3 space-y-2">
+        <span class="font-bold uppercase tracking-wider text-emerald-100 block">7 Fakultas Kolaborator</span>
+        <ul class="space-y-1 text-emerald-300">
+          <li>1. Fakultas Kedokteran</li>
+          <li>2. Fakultas Ilmu Komputer & Sains</li>
+          <li>3. Fakultas Ekonomi</li>
+          <li>4. Fakultas Teknik</li>
+          <li>5. Fakultas FIPB DKV</li>
+          <li>6. Fakultas FKIP</li>
+          <li>7. Fakultas Bisnis Syariah</li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-3 space-y-2">
+        <span class="font-bold uppercase tracking-wider text-emerald-100 block">Dasar Kebijakan</span>
+        <p class="text-emerald-300 leading-relaxed">
+          Mengacu pada Dokumen Perencanaan Digitalisasi RAB v4, Indikator GreenMetric (WS1–WS5), dan UU Pelindungan Data Pribadi (UU No. 27/2022).
+        </p>
+        <p class="text-emerald-400 mt-2">&copy; 2026 Universitas Indo Global Mandiri.</p>
+      </div>
+
     </div>
   </footer>
 
-  <!-- ================= [Stack 5] JAVASCRIPT LOGIC ================= -->
+  <!-- JAVASCRIPT: LOGIKA PENDAFTARAN QR & TRANSAKSI -->
   <script>
     // 1. Inisialisasi Lucide Icons
     lucide.createIcons();
 
-    // 2. Logika Kalkulator Eco Point & Reduksi CO2
-    const checkboxes = document.querySelectorAll('.eco-checkbox');
-    const totalPointsEl = document.getElementById('total-points');
-    const totalCo2El = document.getElementById('total-co2');
-    const badgeStatusEl = document.getElementById('badge-status');
+    // 2. Logika Pendaftaran Nasabah & Generator QR
+    const regForm = document.getElementById('nasabahRegistrationForm');
+    const qrCardOutput = document.getElementById('qrCardOutput');
 
-    checkboxes.forEach(cb => {
-      cb.addEventListener('change', () => {
-        let points = 0;
-        let co2 = 0;
-
-        checkboxes.forEach(item => {
-          if (item.checked) {
-            points += parseInt(item.value);
-            co2 += parseFloat(item.dataset.co2);
-          }
-        });
-
-        // Update tampilan angka
-        totalPointsEl.innerText = points;
-        totalCo2El.innerText = co2.toFixed(1) + ' kg';
-
-        // Update badge peringkat
-        if (points >= 100) {
-          badgeStatusEl.innerHTML = '🏆 Duta Zero Waste UIGM Utama';
-          badgeStatusEl.className = 'mt-1 font-heading font-extrabold text-lg text-brand-yellow';
-        } else if (points >= 50) {
-          badgeStatusEl.innerHTML = '🌿 Eco Warrior Aktif Kampus';
-          badgeStatusEl.className = 'mt-1 font-heading font-extrabold text-lg text-emerald-200';
-        } else {
-          badgeStatusEl.innerHTML = '🌱 Pemula Hijau UIGM';
-          badgeStatusEl.className = 'mt-1 font-heading font-extrabold text-lg text-white';
-        }
-      });
-    });
-
-    // 3. Logika Generator Kartu Komitmen Mahasiswa
-    const form = document.getElementById('commitmentForm');
-    const cardResult = document.getElementById('cardResult');
-
-    form.addEventListener('submit', (e) => {
+    regForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      // Ambil nilai formulir
-      const name = document.getElementById('inputName').value;
-      const nim = document.getElementById('inputNim').value;
-      const faculty = document.getElementById('inputFaculty').value;
-      const pledge = document.getElementById('inputPledge').value;
+      const name = document.getElementById('regName').value;
+      const idNumber = document.getElementById('regId').value;
+      const category = document.getElementById('regCategory').value;
+      const faculty = document.getElementById('regFaculty').value;
 
-      // Masukkan ke kartu
-      document.getElementById('cardName').innerText = name;
-      document.getElementById('cardNim').innerText = 'NIM: ' + nim;
-      document.getElementById('cardFaculty').innerText = faculty;
-      document.getElementById('cardPledge').innerText = `"${pledge}"`;
+      // Update Teks Kartu
+      document.getElementById('outCardName').innerText = name;
+      document.getElementById('outCardId').innerText = 'ID: ' + idNumber + ' (' + category + ')';
+      document.getElementById('outCardFaculty').innerText = faculty;
 
-      // Tampilkan kartu & render ulang ikon
-      cardResult.classList.remove('hidden');
+      // Generate Dynamic QR Code via Public API
+      const qrData = encodeURIComponent(`UIGM-NASABAH|${idNumber}|${name}|${faculty}`);
+      document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=110x110&data=${qrData}`;
+
+      // Update Form Petugas dengan nama nasabah ini
+      document.getElementById('txNasabahName').value = `${name} (${idNumber})`;
+
+      // Tampilkan kartu
+      qrCardOutput.classList.remove('hidden');
+      lucide.createIcons();
+      qrCardOutput.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // 3. Logika Transaksi Petugas Bank Sampah
+    const txCategory = document.getElementById('txCategory');
+    const txWeight = document.getElementById('txWeight');
+    const txSubtotal = document.getElementById('txSubtotal');
+    const btnSubmitTx = document.getElementById('btnSubmitTx');
+    const txHistoryList = document.getElementById('txHistoryList');
+
+    function calculateSubtotal() {
+      const price = parseFloat(txCategory.value);
+      const weight = parseFloat(txWeight.value) || 0;
+      const subtotal = Math.round(price * weight);
+      txSubtotal.innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+      return subtotal;
+    }
+
+    txCategory.addEventListener('change', calculateSubtotal);
+    txWeight.addEventListener('input', calculateSubtotal);
+
+    btnSubmitTx.addEventListener('click', () => {
+      const subtotal = calculateSubtotal();
+      const weight = parseFloat(txWeight.value) || 0;
+      const categoryText = txCategory.options[txCategory.selectedIndex].text.split(' (')[0];
+      const nasabah = document.getElementById('txNasabahName').value || 'Ahmad Faisal';
+
+      // Buat item riwayat baru di atas
+      const newHistory = document.createElement('div');
+      newHistory.className = "p-3 rounded-xl bg-emerald-50 border border-emerald-200 flex justify-between items-center transition";
+      newHistory.innerHTML = `
+        <div>
+          <span class="font-bold text-slate-800 block">${categoryText} (${weight} kg)</span>
+          <span class="text-[10px] text-slate-500">${nasabah} • Baru saja</span>
+        </div>
+        <span class="font-black text-uigm-darkgreen text-xs">+ Rp ${subtotal.toLocaleString('id-ID')}</span>
+      `;
+      txHistoryList.prepend(newHistory);
+
+      // Feedback tombol
+      btnSubmitTx.innerHTML = `<i data-lucide="check-check" class="w-4 h-4"></i> Transaksi Berhasil Tersimpan!`;
       lucide.createIcons();
 
-      // Scroll halus ke kartu
-      cardResult.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        btnSubmitTx.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i> Simpan Setoran & Rekap`;
+        lucide.createIcons();
+      }, 2000);
+    });
+
+    // 4. Inisialisasi Grafik Chart.js untuk Indikator UI GreenMetric
+    const ctx = document.getElementById('wasteChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Ags', 'Sep', 'Okt'],
+        datasets: [
+          {
+            label: 'Organik Terolah (Maggot & Kompos)',
+            data: [320, 450, 510, 600, 720, 850, 920, 1100, 1250, 1480],
+            borderColor: '#2C5F2D',
+            backgroundColor: 'rgba(44, 95, 45, 0.1)',
+            fill: true,
+            tension: 0.3,
+            borderWidth: 3
+          },
+          {
+            label: 'Anorganik Tersortir (Bank Sampah)',
+            data: [210, 310, 400, 480, 540, 680, 750, 890, 980, 1120],
+            borderColor: '#E0A626',
+            backgroundColor: 'transparent',
+            borderDash: [5, 5],
+            tension: 0.3,
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: {
+              boxWidth: 12,
+              font: { family: "'Plus Jakarta Sans', sans-serif", size: 11 }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { font: { size: 10 } }
+          },
+          x: {
+            ticks: { font: { size: 10 } }
+          }
+        }
+      }
     });
   </script>
 </body>
